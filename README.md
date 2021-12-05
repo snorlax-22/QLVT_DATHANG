@@ -1,1 +1,1 @@
-# Đề tài CDSL phân tán Quản Lý Vật Tư Đặt Hàng D16 PTIT
+# Đề tài CDSLPT Đề tài 3: Quản Lý Vật Tư D18 PTIT
