@@ -25,7 +25,7 @@ namespace QLVT_DATHANG.Forms
 
          try
          {
-            UtilDB.BdsDSPM.DataSource = UtilDB.ExecSqlDataTable($"Select * FROM Get_Subscribes", cnnStr);
+            UtilDB.BdsDSPM.DataSource = UtilDB.ExecSqlDataTable($"Select * FROM Get_Subscribes WHERE(TENCN<>N'Tra cứu')", cnnStr);
             if (UtilDB.BdsDSPM.DataSource == null)
             {
                Close();
