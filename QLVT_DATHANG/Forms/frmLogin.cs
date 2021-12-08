@@ -25,7 +25,7 @@ namespace QLVT_DATHANG.Forms
 
          try
          {
-            UtilDB.BdsDSPM.DataSource = UtilDB.ExecSqlDataTable($"Select * FROM Get_Subscribes WHERE(TENCN<>N'Tra cứu')", cnnStr);
+            UtilDB.BdsDSPM.DataSource = UtilDB.ExecSqlDataTable($"SELECT * FROM Get_Subscribes WHERE(TENSERVER <> 'SNORLAX\\SERVER3')", cnnStr);
             if (UtilDB.BdsDSPM.DataSource == null)
             {
                Close();
@@ -68,22 +68,24 @@ namespace QLVT_DATHANG.Forms
 
          // gán username và password vào connectionString và kết nối thử
          if (!IsLogin()) return;
-
+            Console.WriteLine("1");
          UtilDB.CurrentDeployment = cboChiNhanh.SelectedIndex;
          UtilDB.BackupLogin = UtilDB.CurrentLogin;
          UtilDB.BackupPassword = UtilDB.CurrentPassword;
+            Console.WriteLine("2");
 
          if (!GetAndSaveUserInfoFromDB()) return;
-
-         // Copy tren stack overflow
-         frmMain formMain = new frmMain();
+            Console.WriteLine("2,5");
+            // Copy tren stack overflow
+            frmMain formMain = new frmMain();
          this.Hide();
          formMain.Closed += (s, args) => 
          {
             this.Show();
          };
          formMain.Show();
-      }
+            Console.WriteLine("3");
+        }
 
       private void pbHienPW_MouseDown(object sender, MouseEventArgs e)
       {
@@ -157,15 +159,13 @@ namespace QLVT_DATHANG.Forms
             connection.Open();
             SqlCommand sqlcmd = new SqlCommand(cmdText, connection);
             sqlcmd.CommandType = CommandType.Text;
-
+                
             using (SqlDataReader reader = sqlcmd.ExecuteReader())
             {
                try
                {
                   if (reader == null) flag = false;
-
                   reader.Read();
-
                   UtilDB.UserName = reader.GetString(0);     // Lay MANV
                   if (Convert.IsDBNull(UtilDB.UserName))
                   {
@@ -177,11 +177,12 @@ namespace QLVT_DATHANG.Forms
                      UtilDB.CurrentFullName = reader.GetString(1);
                      UtilDB.CurrentGroup = reader.GetString(2);
                   }
-               }
+                        
+                }
                catch (Exception ex)
                {
                   UtilDB.ShowError(ex);
-                  flag = false;
+                 flag = false;
                }
             }
          }
